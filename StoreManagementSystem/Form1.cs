@@ -44,19 +44,20 @@ namespace StoreManagementSystem
                     {
                         connect.Open();
 
-                        string selectData = "SELECT * FROM users WHERE username = @username " +
-                            "AND password = @password";
+                        string selectData = "SELECT password FROM users WHERE username = @username";
 
                         using (SqlCommand cmd = new SqlCommand(selectData, connect))
                         {
                             cmd.Parameters.AddWithValue("@username", login_username.Text.Trim());
-                            cmd.Parameters.AddWithValue("@password", login_password.Text.Trim());
 
                             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                             DataTable table = new DataTable();
                             adapter.Fill(table);
 
-                            if (table.Rows.Count >= 1)
+                            bool ok = table.Rows.Count == 1
+                                && PasswordHasher.Verify(login_password.Text.Trim(), table.Rows[0]["password"].ToString());
+
+                            if (ok)
                             {
                                 MessageBox.Show("Login successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

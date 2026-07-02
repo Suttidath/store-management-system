@@ -67,7 +67,7 @@ namespace StoreManagementSystem
                                 using (SqlCommand cmd = new SqlCommand(insertData, connect))
                                 {
                                     cmd.Parameters.AddWithValue("@username", signup_username.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                    cmd.Parameters.AddWithValue("@password", PasswordHasher.Hash(signup_password.Text.Trim()));
                                     cmd.Parameters.AddWithValue("@dateReg", todady);
 
                                     cmd.ExecuteNonQuery();
