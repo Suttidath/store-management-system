@@ -1,0 +1,17 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Claude Code local session config (personal, not shared)
+.claude/
+
+# OS files
+Thumbs.db
+.DS_Store
